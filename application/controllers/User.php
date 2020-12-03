@@ -21,7 +21,8 @@ class User extends CI_Controller {
 
     public function Save() {
         // echo "form submitted";
-
+        // echo json_encode(array("code" => 200, "message" => "User added successfully"));
+        // exit();
         // debug($_POST);
         $saveData = array (
             "USERNAME" => $_POST['username'],
@@ -35,8 +36,8 @@ class User extends CI_Controller {
         //     "EMAIL"    => "kashi@gmail.com",
         // ); 
 
-        if ( $this->user->SaveUser($saveData) ) {
-            echo "User inserted successfully.";
+        if ( $this->user->SaveUser($saveData) ) { 
+            echo json_encode(array("code" => 200, "message" => "User added successfully"));
         }
     }
 
@@ -65,14 +66,23 @@ class User extends CI_Controller {
         $this->load->view("User_update", $data);
     }
 
-    function Update ( $id ) {
-        // $updateData = array (
-        //     "USERNAME" => "SALMAN",
-        //     "PASSWORD" => "12345",
-        //     "EMAIL"    => "imo@gmail.com",
-        // );
+    function Update () {
+        $updateData = array (
+            "USERNAME" => $_POST['editUsername'],
+            "PASSWORD" => $_POST['editPassword'],
+            "EMAIL"    => $_POST['editEmail'],
+        );
 
-        echo $this->user->UpdateUser($updateData, $id);
+        $result = $this->user->UpdateUser($updateData, $_POST['editUserId']);
+        if ($result) {
+            echo json_encode(array("code" => 200, "message" => "User edit successfully"));
+        }
+    }
+
+    function GetUserById($id) {
+        $userData = $this->user->GetUserById($id);
+        
+        echo json_encode(array("code" => 200, "data" => $userData));
     }
 }
 

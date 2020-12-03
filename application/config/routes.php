@@ -54,6 +54,7 @@ $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
 $route['user'] = "User";
-$route['user/data/save'] = "User/save";
-
+$route['user/data/save'] = "User/Save";
+$route['user/get/data/(:any)'] = "User/GetUserById/$1";
+$route['user/data/update'] = "User/Update";
 $route['home'] = "User/home";
